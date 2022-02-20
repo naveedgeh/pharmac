@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import {React} from 'react';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import {Login,Dashbaord,Home,
+        Category,AddProduct,ListProduct,Pos} from './pages';
+import PrivateRoute from './Routes/PrivateRoutes';
 
-function App() {
+
+const App=()=>{
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <BrowserRouter>
+   <Routes>
+     <Route path="/" element={<Login/>} excat={true}/>
+    
+     <Route path="/" element={<PrivateRoute/>}>
+     <Route path="/admin/pos" element={<Pos/>} excat={true}/>
+       <Route  path="admin" element={<Dashbaord/>}>
+         <Route index element={<Home/>}/>     
+         <Route  path="category" element={<Category/>}/>
+         <Route path="addproduct" element={<AddProduct/>}/>
+         <Route path="listproduct" element={<ListProduct/>}/>
+       </Route> 
+     </Route>
+     <Route path="*"element={<h1>Page is not Found</h1>}/>
+   </Routes>
+   </BrowserRouter>
   );
 }
 
